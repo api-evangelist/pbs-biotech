@@ -1,0 +1,34 @@
+generated: '2026-08-26'
+method: probed
+source: >-
+  scopes_supported from https://shoppbsbiotech.com/.well-known/openid-configuration and
+  https://account.shoppbsbiotech.com/.well-known/openid-configuration (both HTTP 200, probed 2026-08-26).
+authorization_server: https://shopify.com/authentication/71340753133
+protected_resource: https://account.shoppbsbiotech.com
+note: >-
+  These are the Shopify customer-account scopes advertised by the discovery document served on PBS
+  Biotech's own store hosts. There is no PBS Biotech-authored scope surface — the company publishes no
+  API of its own. No scope reference page is published; the descriptions below are the standard meanings
+  of the scope identifiers as advertised, not additional claims.
+scope_count: 4
+scopes:
+- name: openid
+  description: Standard OpenID Connect scope; requests an ID token for the signed-in buyer.
+- name: email
+  description: Standard OpenID Connect scope; releases the email and email_verified claims.
+- name: 'customer-account-api:full'
+  description: Full access to the signed-in buyer's customer account (orders, addresses, profile).
+- name: 'customer-account-mcp-api:full'
+  description: >-
+    Full access to the customer-account MCP API for the signed-in buyer — the authenticated counterpart
+    to the anonymous storefront UCP/MCP endpoint.
+claims_supported:
+- iss
+- sub
+- aud
+- exp
+- iat
+- nonce
+- sid
+- email
+- email_verified

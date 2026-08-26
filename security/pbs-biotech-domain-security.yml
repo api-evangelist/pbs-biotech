@@ -1,0 +1,29 @@
+generated: '2026-08-26'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: pbsbiotech.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Nov 19 13:52:30 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+- host: shoppbsbiotech.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct  4 09:34:32 2026 GMT
+  hsts: true
+  hsts_max_age: 7889238
+domains:
+- domain: pbsbiotech.com
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: quarantine
+- domain: shoppbsbiotech.com
+  dnssec: false
+  caa: []
+  spf: false
+  dmarc: true
+  dmarc_policy: none

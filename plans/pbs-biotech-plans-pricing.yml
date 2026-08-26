@@ -1,0 +1,29 @@
+generated: '2026-08-26'
+method: searched
+source: >-
+  https://pbsbiotech.com/service-plans (200), https://pbsbiotech.com/request-a-quote (200),
+  https://shoppbsbiotech.com/ (200) — searched 2026-08-26.
+plan_count: 0
+note: >-
+  PBS Biotech publishes no API plans, no developer tiers, and no usage-based pricing, because it
+  publishes no API. Its commercial model is capital equipment sold by quotation — the bioreactor systems
+  and process development services are priced through a "Request a Quote" form and a named Service Plans
+  page that does not list prices — plus an online store (shoppbsbiotech.com) that sells consumables at
+  listed per-item prices. Neither is an API plan, so plan_count is an honest zero rather than an
+  omission. The agent-callable UCP/MCP commerce endpoint is free to call; what it sells is priced per
+  product in the store catalog.
+plans: []
+commercial_surfaces:
+- name: Service Plans
+  url: https://pbsbiotech.com/service-plans
+  status: 200
+  pricing: not published
+  note: Named service plan offerings for installed bioreactor systems; no prices on the page.
+- name: Request a Quote
+  url: https://pbsbiotech.com/request-a-quote
+  status: 200
+  pricing: quote only
+- name: Online store (consumables)
+  url: https://shoppbsbiotech.com/
+  status: 200
+  pricing: per-item list prices, machine-readable via /products.json and the UCP/MCP catalog tools

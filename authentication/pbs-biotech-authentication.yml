@@ -1,0 +1,58 @@
+generated: '2026-08-26'
+method: probed
+source: >-
+  https://shoppbsbiotech.com/.well-known/openid-configuration (200),
+  https://shoppbsbiotech.com/.well-known/oauth-authorization-server (200),
+  https://account.shoppbsbiotech.com/.well-known/oauth-protected-resource (200),
+  and an anonymous POST to https://shoppbsbiotech.com/api/ucp/mcp (tools/list 200, tools/call 422).
+  Probed 2026-08-26.
+docs: https://shoppbsbiotech.com/llms.txt
+summary: >-
+  PBS Biotech publishes no developer API of its own and therefore no first-party authentication model.
+  The only authenticated surface reachable on a host it controls is the Shopify customer-account OAuth
+  2.0 / OpenID Connect server behind its online store, plus the anonymous UCP/MCP commerce endpoint.
+schemes:
+- id: ucp-mcp-anonymous
+  type: none
+  applies_to: https://shoppbsbiotech.com/api/ucp/mcp
+  note: >-
+    MCP tools/list requires no credentials and returned 200. tools/call requires no bearer token either,
+    but does require an agent identity handle — meta.ucp-agent.profile, a resolvable agent profile URI.
+    Omitting it returns HTTP 422 with JSON-RPC error -32001 (invalid_profile_url). This is agent
+    identification, not authentication: nothing is issued to the caller.
+- id: shopify-customer-account-oidc
+  type: openIdConnect
+  applies_to: https://account.shoppbsbiotech.com
+  issuer: https://shopify.com/authentication/71340753133
+  authorization_endpoint: https://account.shoppbsbiotech.com/authentication/oauth/authorize
+  token_endpoint: https://account.shoppbsbiotech.com/authentication/oauth/token
+  end_session_endpoint: https://account.shoppbsbiotech.com/authentication/logout
+  jwks_uri: https://account.shoppbsbiotech.com/authentication/.well-known/jwks.json
+  grant_types:
+  - authorization_code
+  - refresh_token
+  - 'urn:ietf:params:oauth:grant-type:jwt-bearer'
+  response_types:
+  - code
+  pkce:
+    required_methods:
+    - S256
+  token_endpoint_auth_methods:
+  - client_secret_basic
+  - client_secret_post
+  id_token_signing_alg:
+  - RS256
+  bearer_methods:
+  - header
+  protected_resource: https://account.shoppbsbiotech.com
+  scopes: scopes/pbs-biotech-scopes.yml
+  note: >-
+    Platform-provided by Shopify for this merchant; the discovery documents are served from PBS Biotech's
+    own store and account hosts. Used for buyer sign-in and customer-account/MCP access, not for any PBS
+    Biotech product API.
+not_found:
+- what: first-party API keys, bearer tokens or OAuth for bioreactor control software
+  note: >-
+    No developer portal, key issuance page, or authentication documentation exists on pbsbiotech.com.
+    The customer support portal and the Vertical-Wheel Scaling Calculator sign-in are human web logins
+    with no documented programmatic surface.

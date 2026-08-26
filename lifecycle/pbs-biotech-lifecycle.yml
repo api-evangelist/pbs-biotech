@@ -1,0 +1,61 @@
+generated: '2026-08-26'
+method: searched
+source: >-
+  https://pbsbiotech.com/software-release-notes (200), https://shoppbsbiotech.com/.well-known/ucp (200),
+  https://pbsbiotech.com/customer-support-portal (200), https://pbsbiotech.com/service-plans (200).
+  Probed 2026-08-26.
+summary: >-
+  PBS Biotech publishes no API lifecycle policy because it publishes no API. What it does publish is an
+  instrument software release index and a set of human support/service surfaces. The one machine-callable
+  surface it operates — the store's UCP/MCP endpoint — carries a real, dated version-support policy, but
+  that policy belongs to the Universal Commerce Protocol as implemented by Shopify, not to PBS Biotech.
+versioning:
+- surface: bioreactor control software
+  scheme: semver-like
+  current: 4.2.1
+  policy_published: false
+  docs: https://pbsbiotech.com/software-release-notes
+- surface: store agent commerce (UCP/MCP)
+  scheme: dated protocol version (YYYY-MM-DD)
+  current: '2026-04-08'
+  supported:
+  - '2026-04-08'
+  - '2026-01-23'
+  policy_published: true
+  policy_note: >-
+    The merchant profile enumerates every supported protocol version with a per-version discovery URL,
+    which is a machine-readable statement of what is still supported. No sunset date is given for
+    2026-01-23.
+  docs: https://shoppbsbiotech.com/.well-known/ucp
+deprecation:
+  policy_published: false
+  sunset_header: not observed
+  deprecation_header: not observed
+  note: >-
+    No deprecation policy, no RFC 8594 Sunset/Deprecation headers observed on any probed response, and
+    no end-of-life schedule for any bioreactor software version.
+status_page:
+  published: false
+  probed:
+  - url: https://status.pbsbiotech.com/
+    status: '<no response>'
+    note: Host does not resolve / connection failed. No status page is linked from any PBS Biotech page.
+sla:
+  published: false
+  note: >-
+    Service Plans (https://pbsbiotech.com/service-plans, 200) describe field-service coverage tiers for
+    installed hardware by name. No response-time commitments or uptime targets are published, and there
+    is no software or API SLA.
+support:
+- name: Customer Support Portal
+  url: https://pbsbiotech.com/customer-support-portal
+  status: 200
+- name: Resources / Help Center
+  url: https://pbsbiotech.com/help-center
+  status: 200
+- name: Troubleshooting FAQ
+  url: https://pbsbiotech.com/troubleshooting-faq
+  status: 200
+- name: Field Service
+  url: https://pbsbiotech.com/field-service-support-page
+  status: 200

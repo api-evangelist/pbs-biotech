@@ -1,0 +1,32 @@
+generated: '2026-08-26'
+method: searched
+source: >-
+  https://shoppbsbiotech.com/agents.md (HTTP 200, text/markdown) saved verbatim, plus the probed MCP
+  tool list at mcp/pbs-biotech-mcp-tools.json (tools/list HTTP 200, 2026-08-26).
+note: >-
+  PBS Biotech's online store publishes a provider-served agent instruction document at /agents.md
+  (mirrored byte-for-byte at /llms.txt). It is saved verbatim below and is the primary skill artifact —
+  it was authored for the merchant by the Shopify platform, but it is served from a host PBS Biotech
+  controls, names this merchant, and is the document the store's own robots.txt directs agents to. The
+  second entry is a generated skill: it repackages that flow against the tool names and required fields
+  actually returned by tools/list, and invents nothing. There is no OpenAPI on any PBS Biotech surface,
+  so no skill is grounded in operationIds.
+skills:
+- name: pbs-biotech-agents
+  file: skills/pbs-biotech-agents.md
+  method: searched
+  provider_published: true
+  source: https://shoppbsbiotech.com/agents.md
+  http_status: 200
+  description: >-
+    The store's own agent instructions — UCP discovery and MCP endpoint, the six-step agent purchase
+    flow, read-only browsing endpoints, rate-limit guidance, the human-approval rule for payment, and
+    links to the store's policies.
+- name: pbs-biotech-order-consumables
+  file: skills/pbs-biotech-order-consumables.md
+  method: generated
+  provider_published: false
+  source: mcp/pbs-biotech-mcp-tools.json
+  description: >-
+    Packaged operating instructions for an agent buying PBS Biotech bioreactor consumables through the
+    store's UCP/MCP endpoint, grounded in the 13 probed tool names and their required fields.

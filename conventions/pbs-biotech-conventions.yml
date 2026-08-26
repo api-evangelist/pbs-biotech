@@ -1,0 +1,114 @@
+generated: '2026-08-26'
+method: probed
+source: >-
+  Derived from the probed MCP tool schemas at mcp/pbs-biotech-mcp-tools.json (tools/list, HTTP 200,
+  2026-08-26), the UCP merchant profile at well-known/pbs-biotech-ucp.json, and the store's published
+  agent instructions at llms/pbs-biotech-llms.txt and https://shoppbsbiotech.com/robots.txt.
+scope_note: >-
+  These conventions describe the ONLY machine-callable surface PBS Biotech exposes — the UCP/MCP commerce
+  endpoint on its Shopify-hosted store. They are the Universal Commerce Protocol's conventions as
+  implemented by Shopify for this merchant, not conventions PBS Biotech authored. The company's
+  bioreactor control software has no documented programmatic interface at all.
+transport:
+  protocol: JSON-RPC 2.0 over HTTP POST
+  endpoint: https://shoppbsbiotech.com/api/ucp/mcp
+  content_type: application/json
+  accept: application/json, text/event-stream
+authentication:
+  style: anonymous for tools/list and storefront tools; OAuth 2.0 / OIDC for customer-account access
+  agent_identity:
+    field: meta.ucp-agent.profile
+    required: true
+    description: >-
+      Every tools/call must carry a resolvable agent profile URI. This is a required, protocol-level
+      agent identity handle — omitting it fails discovery before the tool runs.
+  detail: authentication/pbs-biotech-authentication.yml
+idempotency:
+  supported: true
+  mechanism: request field
+  field: meta.idempotency-key
+  type: string
+  scope: complete_checkout only
+  required: true
+  description: >-
+    complete_checkout is the single write operation in the tool set that can move money, and it is the
+    single tool whose meta object declares idempotency-key as REQUIRED alongside ucp-agent. Every other
+    tool (create/update/cancel cart and checkout, catalog reads, get_order) declares only ucp-agent, so
+    retrying them is not idempotency-protected by the contract.
+  retention: not stated
+  evidence: >-
+    mcp/pbs-biotech-mcp-tools.json — tools[].name == "complete_checkout",
+    inputSchema.properties.meta.required == ["ucp-agent","idempotency-key"], with
+    meta.properties.idempotency-key.description "An idempotency key for completing the checkout."
+  source: https://shoppbsbiotech.com/api/ucp/mcp
+reversibility:
+  grade: documented
+  applies_to: the UCP/MCP commerce surface
+  note: >-
+    Two explicit reversal tools exist and are named as such in the probed tool list, but no reversal
+    WINDOW is stated anywhere on the store's published agent documentation, in the UCP merchant profile,
+    or in the tool descriptions. Grade is therefore `documented`, not `verified`. No refund tool is
+    exposed on this surface at all — refunds fall to the store's human refund policy.
+  operations:
+  - write_operation: complete_checkout
+    reversal: cancel_checkout
+    operation_id: cancel_checkout
+    window: not stated
+    note: >-
+      cancel_checkout is present in tools/list with the description "Cancels a checkout." Whether it can
+      be called after complete_checkout, and for how long, is not documented on any surface probed.
+  - write_operation: create_cart / update_cart
+    reversal: cancel_cart
+    operation_id: cancel_cart
+    window: not stated
+  - write_operation: order placement
+    reversal: none exposed
+    window: not stated
+    docs: https://shoppbsbiotech.com/policies/refund-policy
+    note: >-
+      No refund/void tool exists in the MCP surface. The store publishes a human refund policy at the
+      URL above; it is not read into this artifact as a machine-actionable window and no window is
+      asserted here.
+dry_run_mode:
+  supported: false
+  note: >-
+    No dry-run, preview, or simulate flag appears in any tool schema. create_checkout returning totals,
+    taxes and discounts before complete_checkout is the closest equivalent, but it creates real state.
+pagination:
+  style: not documented
+  note: >-
+    search_catalog and lookup_catalog schemas were probed; no page/cursor/limit convention is documented
+    in the store's own agent instructions. Not asserted.
+error_envelope:
+  format: JSON-RPC 2.0 error object
+  fields:
+  - error.code
+  - error.message
+  - error.data.code
+  - error.data.content
+  - error.data.continue_url
+  detail: errors/pbs-biotech-problem-types.yml
+rate_limiting:
+  documented: true
+  detail: rate-limits/pbs-biotech-rate-limits.yml
+  note: 'llms.txt: "The MCP endpoint is rate-limited per IP. Back off on 429 responses."'
+versioning:
+  style: dated protocol versions
+  current: '2026-04-08'
+  supported:
+  - '2026-04-08'
+  - '2026-01-23'
+  discovery: https://shoppbsbiotech.com/.well-known/ucp
+  detail: lifecycle/pbs-biotech-lifecycle.yml
+human_in_the_loop:
+  required_for: checkout completion, payment, order placement
+  statement: >-
+    "Checkouts are for humans. Do NOT complete checkout, payment, or order placement automatically — no
+    scripted form fills, browser automation, or end-to-end agent flows that finalize payment without an
+    explicit, contemporaneous human approval step."
+  source: https://shoppbsbiotech.com/robots.txt
+read_only_surfaces:
+- 'GET /products/{handle}.json'
+- 'GET /collections/{handle}/products.json'
+- 'GET /search?q={query}&type=product'
+- GET /sitemap.xml

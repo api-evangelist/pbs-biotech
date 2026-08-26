@@ -1,0 +1,61 @@
+generated: '2026-08-26'
+method: probed
+source: >-
+  Observed on live anonymous POSTs to https://shoppbsbiotech.com/api/ucp/mcp (2026-08-26). No error
+  reference is published by PBS Biotech; every entry below was returned by the endpoint itself.
+format: jsonrpc-2.0-error
+rfc9457: false
+note: >-
+  PBS Biotech publishes no OpenAPI and no error reference, so this catalog is not derived from a spec —
+  it records error envelopes actually returned by the store's UCP/MCP endpoint. The catalog is
+  deliberately short: only the errors we could trigger anonymously and without creating store state are
+  recorded. No error code is listed here that was not observed.
+envelope:
+  shape: '{"jsonrpc":"2.0","id":<id>,"error":{"code":<int>,"message":<string>,"data":{...}}}'
+  fields:
+  - name: error.code
+    description: JSON-RPC integer error code. Observed value -32001 (implementation-defined server error).
+  - name: error.message
+    description: Human-readable summary. Observed 'UCP discovery failed'.
+  - name: error.data.code
+    description: Machine-readable sub-code. Observed 'invalid_profile_url'.
+  - name: error.data.content
+    description: "Detail string. Observed 'Unable to fetch agent profile: Missing profile uri'."
+  - name: error.data.continue_url
+    description: A URL the agent can hand to a human to continue in a browser.
+problem_types:
+- code: -32001
+  data_code: invalid_profile_url
+  http_status: 422
+  title: UCP discovery failed
+  detail: "Unable to fetch agent profile: Missing profile uri"
+  cause: >-
+    tools/call was invoked without meta.ucp-agent.profile, or with a profile URI the server could not
+    fetch. Discovery fails before the named tool executes.
+  remediation: >-
+    Publish a resolvable UCP agent profile and send its URI as meta.ucp-agent.profile on every
+    tools/call request.
+  method: probed
+  observed:
+  - request: 'tools/call get_product with empty arguments'
+    status: 422
+  - request: 'method "no_such_method"'
+    status: 422
+    note: >-
+      The same discovery error is returned for an unknown method, so the endpoint does not surface a
+      standard JSON-RPC -32601 Method not found until discovery succeeds.
+- code: null
+  http_status: 429
+  title: Rate limited
+  detail: Rate limit exceeded on the MCP endpoint.
+  cause: Per-IP rate limiting on https://shoppbsbiotech.com/api/ucp/mcp.
+  remediation: Back off and retry.
+  method: searched
+  source: >-
+    https://shoppbsbiotech.com/llms.txt — "Respect rate limits. The MCP endpoint is rate-limited per IP.
+    Back off on 429 responses." Documented by the provider; not triggered by this probe.
+not_documented:
+- >-
+    No catalog of business errors (out of stock, invalid variant, declined payment, address unsupported)
+    is published on any PBS Biotech surface, and none was triggered because doing so would require
+    creating real carts and checkouts against a live merchant.

@@ -1,23 +1,155 @@
 aid: pbs-biotech
 name: PBS Biotech
-description: 'PBS Biotech is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  PBS Biotech, Inc. is a Camarillo, California manufacturer of single-use Vertical-Wheel bioreactor
+  systems for cell and gene therapy manufacturing, scaling from 0.1 L benchtop vessels (PBS-Mini 0.1,
+  PBS-Mini 0.5, MiniPRO) through 3 L, 15 L and 80 L production systems (PBS-3, PBS-15, PBS-80), together
+  with single-use vessels, perfusion consumables, process development (CDO) services, field service and
+  service plans. The company is a hardware and consumables business, not a software vendor: it publishes
+  no developer program, no REST/GraphQL API and no machine-readable contract for its bioreactor control
+  software, whose releases are documented only as versioned PDF release notes. Its one genuinely
+  machine-callable, agent-facing surface is its own online store at shoppbsbiotech.com, a Shopify-hosted
+  storefront that serves an llms.txt/agents.md agent instruction document, a Universal Commerce Protocol
+  (UCP) merchant profile at /.well-known/ucp, and an anonymous MCP endpoint at /api/ucp/mcp exposing 13
+  catalog, cart, checkout and order tools for agent-driven purchase of PBS Biotech consumables.
 url: https://raw.githubusercontent.com/api-evangelist/pbs-biotech/refs/heads/main/apis.yml
+image: https://cdn.prod.website-files.com/62cc627d7fe73059b1484e97/6375797b9b37d215da32705e_PBS_Wing_Logo_1375C-p-500.jpg
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-26'
 modified: '2026-08-26'
 tags:
 - Company
-apis: []
+- Life Sciences
+- Biotechnology
+- Bioprocessing
+- Cell Therapy
+- Laboratory Equipment
+- Manufacturing
+- Ecommerce
+- Agent Commerce
+- MCP
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: pbs-biotech-store-agent-commerce
+  name: PBS Biotech Store Agent Commerce (UCP/MCP)
+  description: >-
+    The agent-callable commerce surface of the PBS Biotech online store. Implemented by Shopify on the
+    company's own shoppbsbiotech.com host and advertised by the store's own /llms.txt, /agents.md and
+    /robots.txt, it exposes a Universal Commerce Protocol (UCP) merchant profile at /.well-known/ucp and
+    an MCP endpoint at /api/ucp/mcp whose anonymous tools/list returns 13 tools spanning catalog search
+    and lookup, cart, checkout and order retrieval. Completing a checkout requires a buyer-approval step
+    and a meta.idempotency-key.
+  humanURL: https://shoppbsbiotech.com/
+  baseURL: https://shoppbsbiotech.com/api/ucp/mcp
+  tags:
+  - Ecommerce
+  - Agent Commerce
+  - MCP
+  - UCP
+  properties:
+  - type: MCPServer
+    url: mcp/pbs-biotech-mcp.yml
+  - type: LLMsTxt
+    url: llms/pbs-biotech-llms.txt
 common:
+- type: DomainSecurity
+  url: security/pbs-biotech-domain-security.yml
 - type: Website
-  url: https://forgeglobal.com/pbs-biotech_stock/
+  url: https://pbsbiotech.com/
+- type: Support
+  url: https://pbsbiotech.com/customer-support-portal
+- type: HelpCenter
+  url: https://pbsbiotech.com/help-center
+- type: Login
+  url: https://pbsbiotech.com/vertical-wheel-scaling-calculator-sign-in
+- type: Pricing
+  url: https://pbsbiotech.com/service-plans
+- type: PrivacyPolicy
+  url: https://www.pbsbiotech.com/privacy-policy
+- type: TermsOfService
+  url: https://shoppbsbiotech.com/policies/terms-of-service
+- type: LinkedIn
+  url: https://www.linkedin.com/company/pbs-biotech-inc.
+- type: LLMsTxt
+  url: llms/pbs-biotech-llms.txt
+- type: WellKnown
+  url: well-known/pbs-biotech-well-known.yml
+- type: MCPServer
+  url: mcp/pbs-biotech-mcp.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Authentication
+  url: authentication/pbs-biotech-authentication.yml
+- type: OAuthScopes
+  url: scopes/pbs-biotech-scopes.yml
+- type: Conventions
+  url: conventions/pbs-biotech-conventions.yml
+- type: Idempotency
+  url: conventions/pbs-biotech-conventions.yml
+- type: ErrorCatalog
+  url: errors/pbs-biotech-problem-types.yml
+- type: RateLimits
+  url: rate-limits/pbs-biotech-rate-limits.yml
+- type: Plans
+  url: plans/pbs-biotech-plans-pricing.yml
+- type: ChangeLog
+  url: changelog/pbs-biotech-changelog.yml
+- type: Lifecycle
+  url: lifecycle/pbs-biotech-lifecycle.yml
+- type: Conformance
+  url: conformance/pbs-biotech-conformance.yml
+- type: Compliance
+  url: conformance/pbs-biotech-conformance.yml
+x-pointer-liveness:
+  checked: '2026-08-26'
+  method: probed
+  note: >-
+    Every external pointer in common[] was fetched with a browser User-Agent on 2026-08-26 and the
+    status recorded. No dead pointers were emitted or left in place.
+  results:
+  - url: https://pbsbiotech.com/
+    status: 200
+  - url: https://pbsbiotech.com/customer-support-portal
+    status: 200
+  - url: https://pbsbiotech.com/help-center
+    status: 200
+  - url: https://pbsbiotech.com/vertical-wheel-scaling-calculator-sign-in
+    status: 200
+  - url: https://pbsbiotech.com/service-plans
+    status: 200
+  - url: https://www.pbsbiotech.com/privacy-policy
+    status: 200
+  - url: https://shoppbsbiotech.com/policies/terms-of-service
+    status: 200
+  - url: https://www.linkedin.com/company/pbs-biotech-inc.
+    status: 200
+  - url: https://shoppbsbiotech.com/
+    status: 200
+  not_emitted:
+  - url: https://pbsbiotech.com/blog
+    status: 404
+    reason: No blog exists; no Blog pointer emitted.
+  - url: https://status.pbsbiotech.com/
+    status: '<no response>'
+    reason: Host does not resolve; no StatusPage pointer emitted.
+  - url: https://github.com/pbsbiotech
+    status: 200
+    reason: >-
+      Organization is empty (0 repos, created 2026-08-24, no name or description) and unlinked from any
+      company surface; no GitHubOrganization pointer emitted.
+  - url: https://shoppbsbiotech.com/account/login
+    status: 406
+    reason: >-
+      Shopify returned a bot-block for our User-Agent, so liveness was not established; the verified
+      pbsbiotech.com scaling-calculator sign-in carries the Login pointer instead.
+x-enrichment:
+  date: '2026-08-26'
+  status: enriched
+  artifacts_added: 22
+  pass: local-v1

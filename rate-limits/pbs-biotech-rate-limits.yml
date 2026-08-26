@@ -1,0 +1,27 @@
+generated: '2026-08-26'
+method: searched
+source: https://shoppbsbiotech.com/llms.txt
+limit_count: 0
+note: >-
+  PBS Biotech publishes no numeric rate limits. Its store's agent instructions state that the UCP/MCP
+  endpoint is rate-limited per IP and that agents should back off on HTTP 429, but give no request
+  count, window, or burst allowance, and no rate-limit response headers are documented. limit_count is
+  therefore an honest zero: the SIGNAL is documented, the LIMIT is not. No rate limit could be observed
+  on the live endpoint because the probe stayed well below any plausible ceiling.
+limits: []
+signals:
+- scope: per-ip
+  surface: https://shoppbsbiotech.com/api/ucp/mcp
+  window: not stated
+  limit: not stated
+  burst: not stated
+  exhaustion_status: 429
+  retry_guidance: 'Back off on 429 responses.'
+  headers_documented: []
+  method: searched
+  quote: 'Respect rate limits. The MCP endpoint is rate-limited per IP. Back off on 429 responses.'
+observed_headers:
+  note: >-
+    The 200 tools/list response carried no X-RateLimit-*, RateLimit-* or Retry-After header. Recorded as
+    observed absence, not as a claim about the limiter.
+  headers: []

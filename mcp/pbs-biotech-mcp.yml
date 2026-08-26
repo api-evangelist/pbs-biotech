@@ -1,0 +1,92 @@
+generated: '2026-08-26'
+method: probed
+source: >-
+  POST https://shoppbsbiotech.com/api/ucp/mcp {"jsonrpc":"2.0","id":1,"method":"tools/list"} — HTTP 200,
+  application/json, 13 tools with full inputSchema (probed anonymously 2026-08-26). Endpoint advertised
+  by the store's own https://shoppbsbiotech.com/llms.txt, /agents.md and /robots.txt.
+name: PBS Biotech Store Agent Commerce (UCP/MCP)
+status: live
+ownership_note: >-
+  This MCP server is the Shopify platform's Universal Commerce Protocol implementation, running for the
+  PBS Biotech merchant. It is served from shoppbsbiotech.com, a host PBS Biotech controls and links from
+  the pbsbiotech.com primary navigation as "Shop"; the UCP profile names merchant "PBSBiotech" with
+  merchant_origin "shoppbsbiotech.com". The tool surface is Shopify's, the catalog and the commercial
+  relationship behind it are PBS Biotech's. PBS Biotech does NOT publish any first-party MCP server for
+  its bioreactors or their control software.
+deployment:
+  mode: remote
+  endpoint: https://shoppbsbiotech.com/api/ucp/mcp
+  auth: none
+  verified: probed
+  note: >-
+    tools/list answers anonymously. tools/call requires meta.ucp-agent.profile (an agent profile URI);
+    a call without it returns HTTP 422 with JSON-RPC error -32001 "UCP discovery failed" /
+    invalid_profile_url. Buyer authentication for order history uses the Shopify customer account OAuth
+    server at account.shoppbsbiotech.com (see authentication/ and scopes/). The canonical UCP profile
+    also lists the shop-domain form of the same endpoint, https://98dc59-0d.myshopify.com/api/ucp/mcp.
+protocol:
+  transport: mcp (JSON-RPC 2.0 over HTTP POST)
+  ucp_versions:
+  - '2026-04-08'
+  - '2026-01-23'
+  ucp_discovery: https://shoppbsbiotech.com/.well-known/ucp
+  openrpc_schema: https://ucp.dev/2026-04-08/services/shopping/mcp.openrpc.json
+  spec: https://ucp.dev/2026-04-08/specification/overview/
+tools_file: mcp/pbs-biotech-mcp-tools.json
+tool_count: 13
+tools:
+- name: search_catalog
+  category: catalog
+  description: Search for products from the online store, hosted on Shopify.
+- name: lookup_catalog
+  category: catalog
+  description: Look up multiple products or variants by identifier.
+- name: get_product
+  category: catalog
+  description: Retrieve complete product detail by identifier. Returns a singular product.
+- name: create_cart
+  category: cart
+  description: Creates a new cart.
+- name: get_cart
+  category: cart
+  description: Get the cart contents.
+- name: update_cart
+  category: cart
+  description: Perform updates to a cart.
+- name: cancel_cart
+  category: cart
+  description: Cancels a cart.
+- name: create_checkout
+  category: checkout
+  description: Creates a checkout; returns line items, totals, discounts and taxes.
+- name: get_checkout
+  category: checkout
+  description: Returns details about the checkout, including line items, totals, discounts and taxes.
+- name: update_checkout
+  category: checkout
+  description: Updates a checkout (shipping address, method, buyer details).
+- name: complete_checkout
+  category: checkout
+  description: >-
+    Completes a checkout and returns the checkout result. REQUIRES meta.idempotency-key in addition to
+    meta.ucp-agent; the only tool in the set that does.
+- name: cancel_checkout
+  category: checkout
+  description: Cancels a checkout.
+- name: get_order
+  category: order
+  description: Get the details of an order.
+capabilities_declared:
+- dev.ucp.shopping.checkout
+- dev.ucp.shopping.fulfillment
+- dev.ucp.shopping.discount
+- dev.ucp.shopping.cart
+- dev.ucp.shopping.catalog.search
+- dev.ucp.shopping.catalog.lookup
+- dev.shopify.catalog
+payment_handlers:
+- com.google.pay
+- dev.shopify.card
+human_approval_required: >-
+  Both /llms.txt and /robots.txt state that agents must not complete checkout, payment, or order
+  placement without an explicit, contemporaneous human approval step.

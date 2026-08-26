@@ -1,0 +1,57 @@
+generated: '2026-08-26'
+method: searched
+source: https://pbsbiotech.com/software-release-notes
+docs: https://pbsbiotech.com/software-release-notes
+subject: PBS Biotech bioreactor control software (PBS-3, PBS-15, PBS-80 systems)
+scheme: semver-like (major.minor[.patch]), per bioreactor platform
+current_version: 4.2.1
+note: >-
+  PBS Biotech maintains a real, publicly reachable Software Release Notes index for the control software
+  that ships with its PBS-3/15/80 bioreactors. It is a link list, not a dated changelog: each entry is a
+  version label plus a "Learn More" link to a PDF, and NO release dates appear anywhere on the page.
+  Version numbers and PDF URLs below are verbatim from the page; dates are deliberately omitted rather
+  than inferred from CDN filenames. This changelog covers embedded instrument software, not an API —
+  PBS Biotech has no API to version. The store's agent-commerce surface versions separately, by dated
+  UCP protocol version (see lifecycle/pbs-biotech-lifecycle.yml).
+entry_count: 9
+entries:
+- version: 4.2.1
+  applies_to: [PBS-3, PBS-15, PBS-80]
+  date: null
+  notes_url: https://47232567.fs1.hubspotusercontent-na1.net/hubfs/47232567/Software%20Release%20Notes/v4.2.1%20Release%20Notes.pdf
+- version: '4.2'
+  applies_to: [PBS-3]
+  date: null
+  notes_url: https://47232567.fs1.hubspotusercontent-na1.net/hubfs/47232567/Software%20Release%20Notes/V4.2%20Release%20Notes.pdf
+- version: '4.1'
+  applies_to: [PBS-3]
+  date: null
+  notes_url: https://cdn.prod.website-files.com/62cc627d7fe73059b1484e97/675774960a8919547f7993d3_pbs_3_4_1_software_notes.pdf
+- version: '4.0'
+  applies_to: [PBS-3]
+  date: null
+  notes_url: https://cdn.prod.website-files.com/62cc627d7fe73059b1484e97/66ef56e92b8f54536b9bbd1f_ID00023-04%20Rev%20B%20-%20v4.0.0%20Release%20Notes.pdf
+- version: 3.2.0
+  applies_to: [PBS-3, PBS-15, PBS-80]
+  date: null
+  notes_url: https://cdn.prod.website-files.com/62cc627d7fe730df74484ebd/65a9c5fe63570953d7c4c587_3.2.0%20Release%20Notes.pdf
+- version: 3.1.0
+  applies_to: [PBS-3, PBS-15, PBS-80]
+  date: null
+  notes_url: https://cdn.prod.website-files.com/62cc627d7fe730df74484ebd/63c9e79d1e08564c497e1bd5_3.1.0%20Release%20Notes%20ID00018A%20Rev%20A.pdf
+- version: 3.0.9
+  applies_to: [PBS-3, PBS-15, PBS-80]
+  date: null
+  notes_url: https://cdn.prod.website-files.com/62cc627d7fe73059b1484e97/671acc62ba60ecae732d73ef_3.0.9%20Release%20Notes%20ID00015A%20Rev%20A.pdf
+- version: 3.0.8
+  applies_to: [PBS-3, PBS-15, PBS-80]
+  date: null
+  notes_url: https://cdn.prod.website-files.com/62cc627d7fe730df74484ebd/63c9e7421618afdd6faeb753_3.0.8%20Release%20Notes%20ID00011A%20Rev%20A.pdf
+- version: 3.0.7
+  applies_to: [PBS-3, PBS-15, PBS-80]
+  date: null
+  notes_url: https://cdn.prod.website-files.com/62cc627d7fe730df74484ebd/63c9e6ee1e0856d4c97e14cd_ID00007A%20Rev%20A%20-%203.0.7%20Release%20Notes.pdf
+gaps:
+- No release dates published on the index page.
+- Release notes are PDF-only; there is no machine-readable feed, RSS, or JSON changelog.
+- No changelog exists for the store's agent-commerce surface; it inherits Shopify/UCP protocol versioning.

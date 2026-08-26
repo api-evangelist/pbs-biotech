@@ -1,0 +1,116 @@
+generated: '2026-08-26'
+method: searched
+source: >-
+  https://shoppbsbiotech.com/.well-known/ucp (200), https://shoppbsbiotech.com/.well-known/openid-configuration
+  (200), https://shoppbsbiotech.com/api/ucp/mcp tools/list (200),
+  https://cdn.prod.website-files.com/62cc627d7fe73059b1484e97/663d4654b2df6db2c8207590_PBS-Nemko_QMS.pdf (200),
+  https://cdn.prod.website-files.com/62cc627d7fe73059b1484e97/663d46604030596156356ae0_PBS-IQNet_QMS.pdf (200).
+  All fetched and read 2026-08-26.
+scope_note: >-
+  Two very different kinds of conformance are recorded here and they should not be conflated. The
+  company-level certification is PBS Biotech's own, verified from the certificate PDFs it publishes. The
+  protocol conformance belongs to its Shopify-hosted store's agent-commerce endpoint; PBS Biotech
+  operates that store but did not implement the protocol.
+standards:
+- id: iso-9001-2015
+  name: ISO 9001:2015 Quality Management System
+  conforms: true
+  scope: >-
+    Design, manufacture, distribution and service of single-use manufacturing equipment for
+    bioprocessing.
+  evidence: >-
+    Nemko Scandinavia AS certificate number 801469, issued to PBS Biotech, 4721 Calle Carga, Camarillo,
+    CA 93012, USA. First issued 2024-04-02, expires 2027-04-02. Mirrored by an IQNet recognized
+    certificate, registration number NO-801469, issued 2024-04-05. Both PDFs are linked from the
+    pbsbiotech.com navigation ("ISO Certificate" / "Quality Certificate") and were downloaded and read.
+  evidence_urls:
+  - https://cdn.prod.website-files.com/62cc627d7fe73059b1484e97/663d4654b2df6db2c8207590_PBS-Nemko_QMS.pdf
+  - https://cdn.prod.website-files.com/62cc627d7fe73059b1484e97/663d46604030596156356ae0_PBS-IQNet_QMS.pdf
+  method: searched
+- id: ucp
+  name: Universal Commerce Protocol (dev.ucp.shopping)
+  conforms: true
+  version: '2026-04-08'
+  also_supported:
+  - '2026-01-23'
+  evidence: >-
+    /.well-known/ucp returns a UCP merchant profile declaring services dev.ucp.shopping over MCP
+    transport and capabilities dev.ucp.shopping.checkout, .fulfillment, .discount, .cart,
+    .catalog.search, .catalog.lookup plus the dev.shopify.catalog extension, each pinned to a published
+    JSON schema on ucp.dev.
+  evidence_url: https://shoppbsbiotech.com/.well-known/ucp
+  domain_standard: true
+  domain: agent-driven ecommerce
+  method: probed
+  note: >-
+    This is a DOMAIN-STANDARD signature declared in the contract itself, not a marketing claim: an agent
+    that already speaks UCP can transact with this store with no bespoke connector. Implemented by
+    Shopify for the merchant.
+- id: mcp
+  name: Model Context Protocol
+  conforms: true
+  evidence: >-
+    POST /api/ucp/mcp with a JSON-RPC 2.0 tools/list request returned HTTP 200 and a well-formed
+    result.tools array of 13 tools, each carrying an inputSchema declared against
+    https://json-schema.org/draft/2020-12/schema.
+  evidence_url: https://shoppbsbiotech.com/api/ucp/mcp
+  method: probed
+- id: oauth2
+  name: OAuth 2.0
+  conforms: true
+  evidence: >-
+    /.well-known/oauth-authorization-server (200) advertises authorization_code and refresh_token grants
+    with a token endpoint; /.well-known/oauth-protected-resource (200) on account.shoppbsbiotech.com
+    advertises header bearer methods and names its authorization servers.
+  evidence_url: https://shoppbsbiotech.com/.well-known/oauth-authorization-server
+  method: probed
+- id: oidc
+  name: OpenID Connect Discovery 1.0
+  conforms: true
+  evidence: >-
+    /.well-known/openid-configuration (200) with issuer, authorization_endpoint, token_endpoint,
+    jwks_uri, RS256 id_token signing, and the standard iss/sub/aud/exp/iat/nonce/sid/email claim set.
+  evidence_url: https://shoppbsbiotech.com/.well-known/openid-configuration
+  method: probed
+- id: pkce
+  name: RFC 7636 PKCE
+  conforms: true
+  evidence: 'code_challenge_methods_supported: ["S256"] in the OIDC discovery document.'
+  method: probed
+- id: rfc9457
+  name: RFC 9457 Problem Details
+  conforms: false
+  evidence: >-
+    The only error surface observed uses the JSON-RPC 2.0 error object, not application/problem+json.
+  method: probed
+- id: rfc9116
+  name: RFC 9116 security.txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on pbsbiotech.com, shoppbsbiotech.com and celltherapy.pbsbiotech.com.
+  method: probed
+- id: openapi
+  name: OpenAPI
+  conforms: false
+  evidence: >-
+    No OpenAPI, Swagger, GraphQL SDL, AsyncAPI, WSDL or .proto is published on any PBS Biotech host.
+    /openapi.json, /openapi.yaml, /swagger.json, /v1/openapi.json, /api-docs, /docs, /redoc and /graphql
+    all 404 on pbsbiotech.com and celltherapy.pbsbiotech.com, and return the storefront 404 shell on
+    shoppbsbiotech.com. The UCP surface publishes an OpenRPC schema, but it is hosted by ucp.dev and
+    belongs to the protocol, not to this provider.
+  method: probed
+not_applicable:
+- id: fhir
+  reason: >-
+    PBS Biotech makes bioprocessing hardware for cell-therapy manufacturing. It handles no patient
+    records and exposes no clinical data interface, so healthcare interoperability standards do not
+    apply to any surface it publishes.
+- id: hl7v2
+  reason: Same as fhir — no clinical messaging surface.
+- id: scim
+  reason: No identity provisioning surface.
+- id: odata
+  reason: No query surface.
+regulatory_note: >-
+  PBS Biotech sells single-use equipment into GMP cell-therapy manufacturing, so its customers operate
+  under FDA 21 CFR Part 11 / EU Annex 11 data-integrity expectations for instrument software. Nothing
+  probed on any public PBS Biotech surface makes a Part 11 claim, and none is asserted here.

@@ -1,0 +1,27 @@
+generated: '2026-08-26'
+method: searched
+source: >-
+  Registry searches on registry.npmjs.org (0 results for "pbsbiotech"), pypi.org/pypi/pbsbiotech/json
+  (404), and api.github.com/orgs/pbsbiotech. Docs/site walked for SDK or download links. 2026-08-26.
+package_count: 0
+packages: []
+note: >-
+  PBS Biotech publishes no client libraries, SDKs, or CLI of any kind, in any registry. npm search for
+  "pbsbiotech" returns 0 packages; PyPI has no such project; there is no Maven, NuGet, RubyGems,
+  Packagist, crates.io or pkg.go.dev presence; and no download or SDK page exists on pbsbiotech.com.
+  This is the expected result for a hardware manufacturer with no API — recorded as a checked absence,
+  not as an untested gap. No SDKs pointer is emitted in apis.yml because there is nothing to point at.
+github_org:
+  url: https://github.com/pbsbiotech
+  exists: true
+  public_repos: 0
+  created_at: '2026-08-24T21:21:06Z'
+  name: null
+  description: null
+  verified_as_company_owned: false
+  note: >-
+    A GitHub organization at this handle exists but was created on 2026-08-24 — two days before this
+    pass — carries no display name, no description, no website, and zero public repositories. Nothing
+    links it to PBS Biotech from any company surface and nothing links it back. It is NOT recorded as
+    the company's GitHub organization and no GitHubOrganization pointer is emitted; an empty two-day-old
+    org of the right name is not evidence of a developer presence.
