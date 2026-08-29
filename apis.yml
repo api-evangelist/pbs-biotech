@@ -13,6 +13,17 @@ description: >-
   (UCP) merchant profile at /.well-known/ucp, and an anonymous MCP endpoint at /api/ucp/mcp exposing 13
   catalog, cart, checkout and order tools for agent-driven purchase of PBS Biotech consumables.
 url: https://raw.githubusercontent.com/api-evangelist/pbs-biotech/refs/heads/main/apis.yml
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://cdn.prod.website-files.com/62cc627d7fe73059b1484e97/6375797b9b37d215da32705e_PBS_Wing_Logo_1375C-p-500.jpg
 x-type: company
 x-source: harvest:secondary-market
