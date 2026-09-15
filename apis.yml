@@ -1,17 +1,16 @@
 aid: pbs-biotech
 name: PBS Biotech
-description: >-
-  PBS Biotech, Inc. is a Camarillo, California manufacturer of single-use Vertical-Wheel bioreactor
+description: 'PBS Biotech, Inc. is a Camarillo, California manufacturer of single-use Vertical-Wheel bioreactor
   systems for cell and gene therapy manufacturing, scaling from 0.1 L benchtop vessels (PBS-Mini 0.1,
   PBS-Mini 0.5, MiniPRO) through 3 L, 15 L and 80 L production systems (PBS-3, PBS-15, PBS-80), together
   with single-use vessels, perfusion consumables, process development (CDO) services, field service and
   service plans. The company is a hardware and consumables business, not a software vendor: it publishes
   no developer program, no REST/GraphQL API and no machine-readable contract for its bioreactor control
-  software, whose releases are documented only as versioned PDF release notes. Its one genuinely
-  machine-callable, agent-facing surface is its own online store at shoppbsbiotech.com, a Shopify-hosted
-  storefront that serves an llms.txt/agents.md agent instruction document, a Universal Commerce Protocol
-  (UCP) merchant profile at /.well-known/ucp, and an anonymous MCP endpoint at /api/ucp/mcp exposing 13
-  catalog, cart, checkout and order tools for agent-driven purchase of PBS Biotech consumables.
+  software, whose releases are documented only as versioned PDF release notes. Its one genuinely machine-callable,
+  agent-facing surface is its own online store at shoppbsbiotech.com, a Shopify-hosted storefront that
+  serves an llms.txt/agents.md agent instruction document, a Universal Commerce Protocol (UCP) merchant
+  profile at /.well-known/ucp, and an anonymous MCP endpoint at /api/ucp/mcp exposing 13 catalog, cart,
+  checkout and order tools for agent-driven purchase of PBS Biotech consumables.'
 url: https://raw.githubusercontent.com/api-evangelist/pbs-biotech/refs/heads/main/apis.yml
 deliveryModel:
   model: saas
@@ -73,13 +72,12 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 apis:
-- aid: pbs-biotech-store-agent-commerce
+- aid: pbs-biotech:pbs-biotech-store-agent-commerce
   name: PBS Biotech Store Agent Commerce (UCP/MCP)
-  description: >-
-    The agent-callable commerce surface of the PBS Biotech online store. Implemented by Shopify on the
-    company's own shoppbsbiotech.com host and advertised by the store's own /llms.txt, /agents.md and
-    /robots.txt, it exposes a Universal Commerce Protocol (UCP) merchant profile at /.well-known/ucp and
-    an MCP endpoint at /api/ucp/mcp whose anonymous tools/list returns 13 tools spanning catalog search
+  description: The agent-callable commerce surface of the PBS Biotech online store. Implemented by Shopify
+    on the company's own shoppbsbiotech.com host and advertised by the store's own /llms.txt, /agents.md
+    and /robots.txt, it exposes a Universal Commerce Protocol (UCP) merchant profile at /.well-known/ucp
+    and an MCP endpoint at /api/ucp/mcp whose anonymous tools/list returns 13 tools spanning catalog search
     and lookup, cart, checkout and order retrieval. Completing a checkout requires a buyer-approval step
     and a meta.idempotency-key.
   humanURL: https://shoppbsbiotech.com/
@@ -151,8 +149,7 @@ common:
 x-pointer-liveness:
   checked: '2026-08-26'
   method: probed
-  note: >-
-    Every external pointer in common[] was fetched with a browser User-Agent on 2026-08-26 and the
+  note: Every external pointer in common[] was fetched with a browser User-Agent on 2026-08-26 and the
     status recorded. No dead pointers were emitted or left in place.
   results:
   - url: https://pbsbiotech.com/
@@ -178,17 +175,15 @@ x-pointer-liveness:
     status: 404
     reason: No blog exists; no Blog pointer emitted.
   - url: https://status.pbsbiotech.com/
-    status: '<no response>'
+    status: <no response>
     reason: Host does not resolve; no StatusPage pointer emitted.
   - url: https://github.com/pbsbiotech
     status: 200
-    reason: >-
-      Organization is empty (0 repos, created 2026-08-24, no name or description) and unlinked from any
-      company surface; no GitHubOrganization pointer emitted.
+    reason: Organization is empty (0 repos, created 2026-08-24, no name or description) and unlinked from
+      any company surface; no GitHubOrganization pointer emitted.
   - url: https://shoppbsbiotech.com/account/login
     status: 406
-    reason: >-
-      Shopify returned a bot-block for our User-Agent, so liveness was not established; the verified
+    reason: Shopify returned a bot-block for our User-Agent, so liveness was not established; the verified
       pbsbiotech.com scaling-calculator sign-in carries the Login pointer instead.
 x-enrichment:
   date: '2026-08-26'
