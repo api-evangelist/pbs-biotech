@@ -53,7 +53,7 @@ tags:
 - Laboratory Equipment
 - Manufacturing
 - E-Commerce
-- Agent Commerce
+- Agentic Commerce
 - MCP
 tags_raw:
 - Company
@@ -84,9 +84,9 @@ apis:
   baseURL: https://shoppbsbiotech.com/api/ucp/mcp
   tags:
   - E-Commerce
-  - Agent Commerce
+  - Agentic Commerce
   - MCP
-  - UCP
+  - Universal Commerce Protocol
   tags_raw:
   - Ecommerce
   - Agent Commerce
