@@ -97,6 +97,9 @@ apis:
     url: mcp/pbs-biotech-mcp.yml
   - type: LLMsTxt
     url: llms/pbs-biotech-llms.txt
+  x-surface: platform-generated
+  x-platform: shopify
+  x-platform-surface: ucp
 common:
 - type: DomainSecurity
   url: security/pbs-biotech-domain-security.yml
