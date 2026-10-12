@@ -1,0 +1,16 @@
+generated: '2026-10-12'
+method: none
+source:
+- https://zapier.com/apps/pbs-biotech/integrations
+- https://n8n.io/integrations/pbs-biotech/
+- https://composio.dev/toolkits/pbs-biotech
+- https://monid.ai/tools/pbs-biotech
+checked:
+- https://composio.dev/toolkits/pbs-biotech
+- https://monid.ai/tools/pbs-biotech
+- https://n8n.io/integrations/pbs-biotech/
+- https://zapier.com/apps/pbs-biotech/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []
